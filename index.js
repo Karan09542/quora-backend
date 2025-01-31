@@ -39,7 +39,8 @@ db.on("reconnected", () => {
   console.log("Mongoose successfully reconnected!");
 });
 
-app.listen(PORT, "127.0.0.1", () => {
+// "127.0.0.1"
+app.listen(PORT, () => {
   console.log(
     `server listening on port ${PORT}: ${protocol}://${host}:${PORT}`
   );
