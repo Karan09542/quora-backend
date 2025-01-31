@@ -7,11 +7,11 @@ const isProduction = process.env.NODE_ENV === "production";
 const protocol = isProduction ? "https" : "http";
 const host = isProduction ? "dot.com" : "localhost";
 
-// const DB_URL = `${process.env.DB_URL.replace(
-//   "<password>",
-//   process.env.DB_PASSWORD
-// )}/quora`;
-const DB_URL = `${process.env.DB_URL}/quora`;
+const DB_URL = `${process.env.DB_URL.replace(
+  "<password>",
+  process.env.DB_PASSWORD
+)}/quora`;
+// const DB_URL = `${process.env.DB_URL}/quora`;
 
 const options = {
   useNewUrlParser: true,
