@@ -24,9 +24,19 @@ const {
 dotenv.config({ path: "./.env" });
 
 const MongoStore = require("connect-mongo");
-const { corsWithoutCredentials } = require("./utility/core_util");
 
-// app.use(corsWithoutCredentials);
+const allowedOrigins = [
+  process.env.FRONTEND_URL || "http://localhost:5173",
+  "http://localhost:5173",
+];
+app.use(
+  cors({
+    origin: allowedOrigins,
+    credentials: true,
+  })
+);
+
+app.use(cors());
 
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
@@ -56,17 +66,17 @@ app.use(express.static(path.join(__dirname, "public")));
 app.use(express.json({ limit: "50mb" }));
 
 app.use("/user", PublicUserRouter);
-app.use("/user", corsWithoutCredentials, PrivateUserRouter);
+app.use("/user", PrivateUserRouter);
 
-app.use("/question", corsWithoutCredentials, QuestionRouter);
-app.use("/post", corsWithoutCredentials, PostRouter);
-app.use("/report", corsWithoutCredentials, ReporterRouter);
-app.use("/preference", corsWithoutCredentials, NotificationPreferenceRouter);
-app.use("/search-result", corsWithoutCredentials, SearchRouter);
-app.use("/book-mark", corsWithoutCredentials, BookmarkRouter);
+app.use("/question", QuestionRouter);
+app.use("/post", PostRouter);
+app.use("/report", ReporterRouter);
+app.use("/preference", NotificationPreferenceRouter);
+app.use("/search-result", SearchRouter);
+app.use("/book-mark", BookmarkRouter);
 
-app.use("/comment", corsWithoutCredentials, PublicCommentRouter);
-app.use("/comment", corsWithoutCredentials, PrivateCommentRouter);
+app.use("/comment", PublicCommentRouter);
+app.use("/comment", PrivateCommentRouter);
 
 app.get("/", (req, res) => {
   res.send("हर हर महादेव");
