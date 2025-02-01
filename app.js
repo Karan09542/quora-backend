@@ -27,7 +27,8 @@ const MongoStore = require("connect-mongo");
 
 app.use(
   cors({
-    origin: process.env.FRONTEND_URL || "http://localhost:5173",
+    // origin: process.env.FRONTEND_URL || "http://localhost:5173",
+    origin: "https://quora-frontend-three.vercel.app",
     credentials: true,
   })
 );
