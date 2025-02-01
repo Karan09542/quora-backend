@@ -25,6 +25,15 @@ dotenv.config({ path: "./.env" });
 
 const MongoStore = require("connect-mongo");
 
+app.use((req, res, next) => {
+  res.setHeader("Access-Control-Allow-Credentials", "true");
+  res.setHeader(
+    "Access-Control-Allow-Origin",
+    process.env.FRONTEND_URL || "http://localhost:5173"
+  );
+  next();
+});
+
 const allowedOrigins = [
   process.env.FRONTEND_URL || "http://localhost:5173",
   "http://localhost:5173",
