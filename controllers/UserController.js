@@ -219,20 +219,12 @@ exports.userLoginController = CatchAsync(async (req, res, next) => {
   // end preference
   await user.save({ validateBeforeSave: false });
 
-  // setCookies(res, refreshToken);
-  res
-    .cookie("refreshToken", refreshToken, {
-      httpOnly: true,
-      secure: isSecure,
-      sameSite: "None",
-      expires: new Date(Date.now() + 90 * 24 * 60 * 60 * 1000),
-    })
-    .status(200)
-    .json({
-      status: "success",
-      message: "Logged in successfully",
-      accessToken,
-    });
+  setCookies(res, refreshToken);
+  res.status(200).json({
+    status: "success",
+    message: "Logged in successfully",
+    accessToken,
+  });
 });
 
 exports.userLogoutController = CatchAsync(async (req, res, next) => {
