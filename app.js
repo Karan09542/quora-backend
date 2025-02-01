@@ -21,20 +21,21 @@ const {
   PrivateCommentRouter,
   PublicCommentRouter,
 } = require("./routes/CommentRouter");
+const {
+  getQuestionWithAllAnswersController,
+} = require("./controllers/DynmaciQuestionController");
 dotenv.config({ path: "./.env" });
 
 const MongoStore = require("connect-mongo");
 
-const allowedOrigins = [
-  process.env.FRONTEND_URL || "http://localhost:5173",
-  "http://localhost:5173",
-];
 app.use(
   cors({
-    origin: allowedOrigins,
+    origin: process.env.FRONTEND_URL || "http://localhost:5173",
     credentials: true,
   })
 );
+
+app.use(cors());
 
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
