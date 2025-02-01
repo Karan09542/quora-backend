@@ -31,7 +31,8 @@ async function signRefreshToken(userId) {
 function setCookies(res, token) {
   res.cookie("refreshToken", token, {
     httpOnly: true,
-    creadentials: true,
+    secure: process.env.NODE_ENV === "production",
+    sameSite: "none",
     expires: new Date(Date.now() + 90 * 24 * 60 * 60 * 1000),
   });
 }
