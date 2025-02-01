@@ -38,19 +38,25 @@ const {
   getMensionController,
   uploadProfilePictureController,
 } = require("../controllers/UserController");
+const { corsWithCredentials } = require("../utility/core_util");
 
 const PublicUserRouter = express.Router();
 PublicUserRouter.post("/signup", userSignupController);
 PublicUserRouter.post("/verify-email", userSignupVarificationController);
 PublicUserRouter.post("/login", userLoginController);
-PublicUserRouter.post("/logout", userLogoutController);
+PublicUserRouter.post("/logout", corsWithCredentials, userLogoutController);
 PublicUserRouter.post(
   "/logout-of-all-other-devices",
+  corsWithCredentials,
   logoutOfAllOtherDevicesController
 );
 PublicUserRouter.post("/forgot-password", userForgetPasswordController);
 PublicUserRouter.post("/update-password", userUpdatePasswordController);
-PublicUserRouter.post("/refresh-token", refreshTokenController);
+PublicUserRouter.post(
+  "/refresh-token",
+  corsWithCredentials,
+  refreshTokenController
+);
 // profile
 PublicUserRouter.post("/followers", getFollowDataController(false));
 PublicUserRouter.post("/followings", getFollowDataController(true));
@@ -66,7 +72,7 @@ PublicUserRouter.post(
 const PrivateUserRouter = express.Router();
 PrivateUserRouter.use(authorize);
 
-PrivateUserRouter.post("/", GetCurrentUserController);
+PrivateUserRouter.post("/", corsWithCredentials, GetCurrentUserController);
 PrivateUserRouter.post("/fetch-title", fetchTitleController);
 PrivateUserRouter.post("/handle-bookmarks", handleBookmarksController);
 PrivateUserRouter.post("/handle-following", userFollowingController);
