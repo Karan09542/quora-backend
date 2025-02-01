@@ -34,6 +34,7 @@ function setCookies(res, token) {
     httpOnly: true,
     secure: isSecure,
     sameSite: "None",
+    domain: ".vercel.app",
     expires: new Date(Date.now() + 90 * 24 * 60 * 60 * 1000),
   });
 }
