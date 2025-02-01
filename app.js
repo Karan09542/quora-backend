@@ -52,7 +52,7 @@ app.use(
       secure: process.env.NODE_ENV === "production",
       httpOnly: true,
       maxAge: 7 * 60 * 1000,
-      sameSite: "none",
+      sameSite: "None",
     },
   })
 );
