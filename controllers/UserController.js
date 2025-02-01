@@ -17,6 +17,7 @@ const Report = require("../models/ReportModel");
 const Preference = require("../models/PreferencesModel");
 const { getAnswers, getQuestions } = require("../utility/getDocuments");
 
+const isSecure = process.env.NODE_ENV === "production";
 async function signAccessToken(userId) {
   return jwt.sign({ id: userId }, process.env.JWT_ACCESS_SECRET, {
     expiresIn: "15m",
@@ -31,8 +32,8 @@ async function signRefreshToken(userId) {
 function setCookies(res, token) {
   res.cookie("refreshToken", token, {
     httpOnly: true,
-    secure: process.env.NODE_ENV === "production",
-    sameSite: "none",
+    secure: isSecure,
+    sameSite: "None",
     expires: new Date(Date.now() + 90 * 24 * 60 * 60 * 1000),
   });
 }
