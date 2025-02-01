@@ -26,7 +26,7 @@ dotenv.config({ path: "./.env" });
 const MongoStore = require("connect-mongo");
 const { corsWithoutCredentials } = require("./utility/core_util");
 
-app.use(corsWithoutCredentials);
+// app.use(corsWithoutCredentials);
 
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
