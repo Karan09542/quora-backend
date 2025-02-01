@@ -25,10 +25,19 @@ dotenv.config({ path: "./.env" });
 
 const MongoStore = require("connect-mongo");
 
+const allowedOrigins = [
+  process.env.FRONTEND_URL || "http://localhost:5173",
+  "http://localhost:5173",
+];
 app.use(
   cors({
-    // origin: process.env.FRONTEND_URL || "http://localhost:5173",
-    origin: "https://quora-frontend-three.vercel.app",
+    origin: function (origin, callback) {
+      if (!origin || allowedOrigins.includes(origin)) {
+        callback(null, true);
+      } else {
+        callback(new Error("Not allowed by CORS"));
+      }
+    },
     credentials: true,
   })
 );
