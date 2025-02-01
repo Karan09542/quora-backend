@@ -36,8 +36,6 @@ app.use(
   })
 );
 
-// app.use(cors());
-
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use(
