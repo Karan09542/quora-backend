@@ -32,8 +32,9 @@ async function signRefreshToken(userId) {
 function setCookies(res, token) {
   res.cookie("refreshToken", token, {
     httpOnly: true,
-    // secure: true,
-    // sameSite: "none",
+    secure: true,
+    sameSite: "none",
+    domain: ".vercel.app",
     expires: new Date(Date.now() + 90 * 24 * 60 * 60 * 1000),
   });
 }
