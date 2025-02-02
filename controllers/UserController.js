@@ -1215,7 +1215,6 @@ exports.getUserByUsernameController = CatchAsync(async (req, res, next) => {
         isOwnProfile: 1,
         credentials: 1,
         dob: 1,
-        posts: 1,
       },
     },
   ]);
