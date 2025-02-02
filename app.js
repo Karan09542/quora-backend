@@ -48,7 +48,7 @@ app.use(
       autoRemoveInterval: 1, // Check every 1 minute
     }),
     resave: false,
-    saveUninitialized: true,
+    saveUninitialized: isSecure ? false : true,
     cookie: {
       secure: isSecure,
       httpOnly: true,
