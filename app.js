@@ -24,6 +24,7 @@ const {
 dotenv.config({ path: "./.env" });
 
 const MongoStore = require("connect-mongo");
+const isSecure = process.env.NODE_ENV === "production";
 
 app.use(
   cors({
@@ -49,10 +50,10 @@ app.use(
     resave: false,
     saveUninitialized: true,
     cookie: {
-      secure: process.env.NODE_ENV === "production",
+      secure: isSecure,
       httpOnly: true,
       maxAge: 7 * 60 * 1000,
-      sameSite: "None",
+      sameSite: isSecure ? "None" : "lax",
     },
   })
 );
