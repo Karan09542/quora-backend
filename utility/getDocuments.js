@@ -519,6 +519,7 @@ exports.getProfiles = async ({ q, userId }) => {
   return await User.aggregate([
     {
       $match: {
+        isVerified: true,
         $or: [
           { username: { $regex: q, $options: "i" } },
           { "credentials.employment": { $regex: q, $options: "i" } },
